@@ -104,10 +104,15 @@ double[] pop ; //母集団データ
 		//母集団のタイプが正規分布だった場合
 		if(rbt_Normal.isSelected()) {
 			for(int i=0;i<pop.length;i++) {
-				pop[i] = gen.nextGaussian();
+				double d = gen.nextGaussian();
+				pop[i] = d*stdev + ave;
 			}
-		
-		}
+		}// end of if(正規分布なら
+		//母集団のタイプが一様分布だった場合。
+		//min から max までの整数を等確率で集めた集合を母集団とする
+		if(rbt_Uniform.isSelected()) {
+			
+		}// end of if(一様分布なら
 	}
 
 }
