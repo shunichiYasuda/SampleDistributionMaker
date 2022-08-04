@@ -17,8 +17,8 @@
          <children>
             <ToolBar layoutY="14.0" prefHeight="40.0" prefWidth="794.0">
               <items>
-                  <Button fx:id="execBtn" mnemonicParsing="false" onAction="#execAction" text="生成" />
-                  <Button mnemonicParsing="false" text="母集団出力" />
+                  <Button fx:id="execBtn" mnemonicParsing="false" onAction="#execAction" text="母集団生成" />
+                  <Button fx:id="execSampleBtn" mnemonicParsing="false" onAction="#makeSample" text="標本分布作成" />
                   <Button mnemonicParsing="false" text="標本出力" />
                   <Button fx:id="quitBtn" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#quitAction" text="終了" />
               </items>

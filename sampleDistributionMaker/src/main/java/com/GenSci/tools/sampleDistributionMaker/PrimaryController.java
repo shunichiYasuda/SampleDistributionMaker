@@ -26,6 +26,9 @@ public class PrimaryController {
 	Button clearBtn;
 	@FXML
 	Button copyBtn;
+	//標本分布作成ボタン
+	@FXML
+	Button execSampleBtn;
 	@FXML
 	TextField popSizeNormal; // 母集団サイズ正規分布
 	@FXML
@@ -79,6 +82,12 @@ public class PrimaryController {
 			makeUniformPop();
 		}
 
+	}
+	@FXML
+	private void makeSample() { //母集団からの標本分布を作成
+		//pop (double型・正規分布）とpopInt （int型・一様分布）の2種類データがあるので、作業が面倒
+		//size は共通なのでサンプルになるデータ番号を先に作成する。
+		
 	}
 
 	private void makeNormalPop() {
