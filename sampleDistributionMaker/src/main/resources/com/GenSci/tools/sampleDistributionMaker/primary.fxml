@@ -11,13 +11,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GenSci.tools.sampleDistributionMaker.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.GenSci.tools.sampleDistributionMaker.PrimaryController">
    <children>
-      <Pane layoutY="-14.0" prefHeight="482.0" prefWidth="600.0">
+      <Pane layoutY="-14.0" prefHeight="593.0" prefWidth="794.0">
          <children>
-            <ToolBar prefHeight="40.0" prefWidth="600.0">
+            <ToolBar layoutY="14.0" prefHeight="40.0" prefWidth="794.0">
               <items>
                   <Button fx:id="execBtn" mnemonicParsing="false" onAction="#execAction" text="生成" />
+                  <Button mnemonicParsing="false" text="母集団出力" />
+                  <Button mnemonicParsing="false" text="標本出力" />
                   <Button fx:id="quitBtn" layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#quitAction" text="終了" />
               </items>
             </ToolBar>
@@ -33,7 +35,7 @@
             <Label fx:id="sampleAve" layoutX="106.0" layoutY="140.0" text="0" />
             <Label layoutX="170.0" layoutY="140.0" text="標本分布標準偏差" />
             <Label fx:id="sampleStdev" layoutX="279.0" layoutY="140.0" text="0" />
-            <Canvas height="276.0" layoutX="3.0" layoutY="252.0" width="600.0" />
+            <Canvas height="419.0" layoutX="3.0" layoutY="174.0" width="562.0" />
             <Label layoutX="303.0" layoutY="140.0" text="不偏分散" />
             <Label fx:id="sampleUnVar" layoutX="360.0" layoutY="140.0" text="0" />
             <Label layoutX="402.0" layoutY="140.0" text="標準誤差" />
@@ -46,13 +48,15 @@
                   <ToggleGroup fx:id="group" />
                </toggleGroup>
             </RadioButton>
-            <TextField fx:id="popSize1" layoutX="144.0" layoutY="53.0" prefHeight="25.0" prefWidth="64.0" />
+            <TextField fx:id="minUniform" layoutX="144.0" layoutY="53.0" prefHeight="25.0" prefWidth="64.0" />
             <Label layoutX="241.0" layoutY="57.0" text="最大値" />
-            <TextField fx:id="popSize11" layoutX="286.0" layoutY="53.0" prefHeight="25.0" prefWidth="64.0" />
+            <TextField fx:id="maxUniform" layoutX="286.0" layoutY="53.0" prefHeight="25.0" prefWidth="64.0" />
             <Label layoutX="360.0" layoutY="57.0" text="母集団サイズ" />
             <TextField fx:id="popSizeUniform" layoutX="434.0" layoutY="53.0" prefHeight="25.0" prefWidth="64.0" />
             <RadioButton fx:id="rbt_Normal" layoutX="2.0" layoutY="84.0" mnemonicParsing="false" text="正規分布" toggleGroup="$group" />
+            <TextArea fx:id="log" layoutX="565.0" layoutY="53.0" prefHeight="533.0" prefWidth="229.0" />
+            <Button fx:id="clearBtn" layoutX="728.0" layoutY="554.0" mnemonicParsing="false" onAction="#clear" text="clear" />
+            <Button fx:id="copyBtn" layoutX="672.0" layoutY="554.0" mnemonicParsing="false" onAction="#copy" text="copy" />
          </children></Pane>
-      <TextArea fx:id="log" layoutY="524.0" prefHeight="53.0" prefWidth="600.0" />
    </children>
 </AnchorPane>
