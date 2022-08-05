@@ -26,7 +26,7 @@ public class PrimaryController {
 	Button clearBtn;
 	@FXML
 	Button copyBtn;
-	//標本分布作成ボタン
+	// 標本分布作成ボタン
 	@FXML
 	Button execSampleBtn;
 	@FXML
@@ -61,7 +61,7 @@ public class PrimaryController {
 	ToggleGroup group;
 
 	double[] pop; // 母集団データ（実数）
-	int[] popInt; //母集団データ（整数）
+	int[] popInt; // 母集団データ（整数）
 //乱数ジェネレータ
 	Random gen = new Random();
 	int size = 0;// 母集団サイズ
@@ -78,20 +78,51 @@ public class PrimaryController {
 		if (rbt_Normal.isSelected()) {
 			makeNormalPop();
 		}
-		if(rbt_Uniform.isSelected()) {
+		if (rbt_Uniform.isSelected()) {
 			makeUniformPop();
 		}
 
 	}
+
 	@FXML
-	private void makeSample() { //母集団からの標本分布を作成
-		//pop (double型・正規分布）とpopInt （int型・一様分布）の2種類データがあるので、作業が面倒
-		//size は共通なのでサンプルになるデータ番号を先に作成する。
+	private void makeSample() { // 母集団からの標本分布を作成
+		// pop (double型・正規分布）とpopInt （int型・一様分布）の2種類データがあるので、作業が面倒
+		// size は共通なのでサンプルになるデータ番号を先に作成する。
+		// サンプルサイズの読み込み
+		int sSize = readParamInt(sampleSize, "サンプルサイズ");
+		// 母集団のデータ番号がランダムにはいる配列
+		int[] indexArray = new int[sSize];
 		
+		// このとき、一様分布と正規分布ではデータの型が異なるが、popInt も double として計算するので
+		//同じメソッドを使えそうだが、pop と popInt を分けたので共通メソッドをつくるのは無理。
+		// その前に共通して必要となる標本分布の配列を用意しておく。
+		double[] sampleDistribution = new double[readParamInt(sampleNumber, "採取回数")];
+		// 分布の型に応じた処理
+		if (rbt_Normal.isSelected()) {
+			//サンプル採取は sampleDistribution の長さ分の回数を行われなければならず
+			//採取ごとに indexArrayは更新されなければならない。
+			for(int n=0;n<sampleDistribution.length;n++) {
+				// 母集団のデータ番号をランダムにいれるが、母集団データは大きさ size の入れるなので
+				// 0から size-1 までの番号をランダムに入れればよい。重複を許すのでこの点楽。
+				for (int i = 0; i < sSize; i++) {
+					indexArray[i] = gen.nextInt(size);
+				}
+				
+			}
+			double sum = 0.0;
+			for(int target : indexArray) {
+				sum += pop[target];
+			}
+			double ave = sum / sSize;
+		}
+		if (rbt_Uniform.isSelected()) {
+			makeUniformPop();
+		}
+
 	}
 
 	private void makeNormalPop() {
-		size  = readParamInt(popSizeNormal, "母集団のデータ数");
+		size = readParamInt(popSizeNormal, "母集団のデータ数");
 		double ave = 0.0;
 		double stdev = 0.0;
 		ave = readParamDouble(popAve, "母集団の平均値");
@@ -102,34 +133,34 @@ public class PrimaryController {
 			double d = gen.nextGaussian();
 			pop[i] = d * stdev + ave;
 		}
-		log.appendText("正規分布母集団：size="+size+"平均="+ave + "標準偏差"+stdev+"\n");
-		for(double d:pop) {
-			log.appendText(d+"\n");
+		log.appendText("正規分布母集団：size=" + size + "平均=" + ave + "標準偏差" + stdev + "\n");
+		for (double d : pop) {
+			log.appendText(d + "\n");
 		}
 	}
 
 	private void makeUniformPop() {
-		size =readParamInt(popSizeUniform, "母集団のデータ数");
-		int min =0;
+		size = readParamInt(popSizeUniform, "母集団のデータ数");
+		int min = 0;
 		int max = 0;
 		min = readParamInt(minUniform, "一様分布データの最小値");
 		max = readParamInt(maxUniform, "一様分布データの最大値");
-		//max - min +1 個の連続する整数が母集団のデータ
-		int dataRange = max - min +1;
-		//Random#nextInt(n) は 0 から n-1 の整数を等確率でランダムに吐き出すので
-		//min から max までを出力するには nextInt(n) が吐き出した数値にminを足す。
-		//min =1,max=6 ：dataRange =6, なので 0 - 5を出す。これに min を足すと 1 - 6
-		//min = -3, max = 5 : dataRange = 9 なので、 0～8 を出す。これに min を足すと
-		//-3 ～ 5 
-		//System.out.println("min="+min);
+		// max - min +1 個の連続する整数が母集団のデータ
+		int dataRange = max - min + 1;
+		// Random#nextInt(n) は 0 から n-1 の整数を等確率でランダムに吐き出すので
+		// min から max までを出力するには nextInt(n) が吐き出した数値にminを足す。
+		// min =1,max=6 ：dataRange =6, なので 0 - 5を出す。これに min を足すと 1 - 6
+		// min = -3, max = 5 : dataRange = 9 なので、 0～8 を出す。これに min を足すと
+		// -3 ～ 5
+		// System.out.println("min="+min);
 		popInt = new int[size];
-		for(int i=0;i<popInt.length;i++) {
-			popInt[i] = gen.nextInt(dataRange)+min;
+		for (int i = 0; i < popInt.length; i++) {
+			popInt[i] = gen.nextInt(dataRange) + min;
 		}
-		//log への出力
-		log.appendText("一様分布：サイズ: "+size+" min:"+min+"  max:"+max+"\n");
-		for(int d:popInt) {
-			log.appendText(d+"\n");
+		// log への出力
+		log.appendText("一様分布：サイズ: " + size + " min:" + min + "  max:" + max + "\n");
+		for (int d : popInt) {
+			log.appendText(d + "\n");
 		}
 //		//check
 //		for(int i=0;i<popInt.length;i++) {
@@ -150,8 +181,9 @@ public class PrimaryController {
 		}
 		return r;
 	}
+
 	//
-	private int readParamInt(TextField tf,String errMsg) {
+	private int readParamInt(TextField tf, String errMsg) {
 		int r = 0;
 		String txt = tf.getText();
 		try {
@@ -162,11 +194,13 @@ public class PrimaryController {
 		}
 		return r;
 	}
+
 	//
 	@FXML
 	private void clear() {
 		log.clear();
 	}
+
 	//
 	@FXML
 	private void copy() {
