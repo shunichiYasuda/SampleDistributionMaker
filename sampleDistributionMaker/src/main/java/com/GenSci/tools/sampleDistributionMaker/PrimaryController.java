@@ -92,32 +92,41 @@ public class PrimaryController {
 		int sSize = readParamInt(sampleSize, "サンプルサイズ");
 		// 母集団のデータ番号がランダムにはいる配列
 		int[] indexArray = new int[sSize];
-		
-		// このとき、一様分布と正規分布ではデータの型が異なるが、popInt も double として計算するので
-		//同じメソッドを使えそうだが、pop と popInt を分けたので共通メソッドをつくるのは無理。
-		// その前に共通して必要となる標本分布の配列を用意しておく。
+
+		// ここへきて、pop とpopInt が分かれていると処理が長くなる。
+		// 母集団が決まっているなら、標本分布の計算は同じなのだから、この段階で分布別に
+		// 処理する必要がない。
+		// どちらの分布が選択されていようが、ひとつの double 配列に母集団データを
+		// コピーしてそれを使って処理した方がすっきりする。
+		// ここからは masterPop が母集団である。
+		double[] masterPop = new double[size];
+		for (int i = 0; i < masterPop.length; i++) {
+			if (rbt_Normal.isSelected()) {
+				masterPop[i] = pop[i];
+			}
+			if (rbt_Uniform.isSelected()) {
+				masterPop[i] = (double) popInt[i];
+			}
+		} // masterPop へのコピー終わり
+			// 次の配列にサンプル平均値が入る。
 		double[] sampleDistribution = new double[readParamInt(sampleNumber, "採取回数")];
-		// 分布の型に応じた処理
-		if (rbt_Normal.isSelected()) {
-			//サンプル採取は sampleDistribution の長さ分の回数を行われなければならず
-			//採取ごとに indexArrayは更新されなければならない。
-			for(int n=0;n<sampleDistribution.length;n++) {
-				// 母集団のデータ番号をランダムにいれるが、母集団データは大きさ size の入れるなので
-				// 0から size-1 までの番号をランダムに入れればよい。重複を許すのでこの点楽。
-				for (int i = 0; i < sSize; i++) {
-					indexArray[i] = gen.nextInt(size);
-				}
-				
+		//標本分布の作成
+		for (int n = 0; n < sampleDistribution.length; n++) {
+			// 母集団のデータ番号をランダムにいれるが、母集団データは大きさ size なので
+			// 0から size-1 までの番号をランダムに入れればよい。重複を許すのでこの点楽。
+			for (int i = 0; i < sSize; i++) {
+				indexArray[i] = gen.nextInt(size);
 			}
+			// n回のサンプルとなるデータ番号ができたのでそのデータ番号のデータを集めて
+			// 平均を取る
 			double sum = 0.0;
-			for(int target : indexArray) {
-				sum += pop[target];
+			for (int target : indexArray) {
+				sum += masterPop[target];
 			}
-			double ave = sum / sSize;
-		}
-		if (rbt_Uniform.isSelected()) {
-			makeUniformPop();
-		}
+			sampleDistribution[n] = sum / sSize;
+		} //標本分布の作成終わり
+		//標本分布の諸元を作成して表示
+		
 
 	}
 
