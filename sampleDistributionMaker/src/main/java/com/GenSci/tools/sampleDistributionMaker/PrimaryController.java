@@ -117,16 +117,32 @@ public class PrimaryController {
 			for (int i = 0; i < sSize; i++) {
 				indexArray[i] = gen.nextInt(size);
 			}
-			// n回のサンプルとなるデータ番号ができたのでそのデータ番号のデータを集めて
+			// n回目のサンプルとなるデータ番号ができたのでそのデータ番号のデータを集めて
 			// 平均を取る
 			double sum = 0.0;
 			for (int target : indexArray) {
 				sum += masterPop[target];
 			}
 			sampleDistribution[n] = sum / sSize;
+			//
 		} //標本分布の作成終わり
 		//標本分布の諸元を作成して表示
-		
+		double sum = 0.0;
+		double ave = 0.0;
+		double var = 0.0;
+		double unbiasedVar =0.0;
+		for(int i=0;i<sampleDistribution.length;i++) {
+			sum += sampleDistribution[i];
+		}
+		ave = sum/(double)sampleDistribution.length;
+		sum = 0.0;
+		for(int i=0;i<sampleDistribution.length;i++) {
+			sum += (sampleDistribution[i]-ave)* (sampleDistribution[i]-ave);
+		}
+		var = sum/(double)sampleDistribution.length;
+		sampleAve.setText(String.format("%.3f", ave));
+		unbiasedVar = sum /(double)(sampleDistribution.length - 1);
+		sampleStdev.setText(String.format("%.3f", Math.sqrt(var)));
 
 	}
 
