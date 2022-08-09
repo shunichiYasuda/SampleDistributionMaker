@@ -45,10 +45,14 @@ public class PrimaryController {
 	TextField sampleSize; // 標本サイズ
 	@FXML
 	TextField sampleNumber; // 標本採取回数
+	@FXML 
+	Label popAveReal ;
+	@FXML
+	Label popVarReal;
 	@FXML
 	Label sampleAve; // 標本平均の平均（標本平均）
 	@FXML
-	Label sampleStdev; // 標本平均の標準偏差
+	Label sampleVar; // 標本平均の分散
 	@FXML
 	Label sampleUnVar; // 標本平均の平均（標本平均）
 	@FXML
@@ -142,7 +146,7 @@ public class PrimaryController {
 		var = sum/(double)sampleDistribution.length;
 		sampleAve.setText(String.format("%.3f", ave));
 		unbiasedVar = sum /(double)(sampleDistribution.length - 1);
-		sampleStdev.setText(String.format("%.3f", Math.sqrt(var)));
+		sampleVar.setText(String.format("%.3f", Math.sqrt(var)));
 
 	}
 
@@ -158,6 +162,21 @@ public class PrimaryController {
 			double d = gen.nextGaussian();
 			pop[i] = d * stdev + ave;
 		}
+		//作成した母集団は当然実際には与えたパラメータと異なる母数を持つ。
+		//実際に作成された母数を計算しておく
+		double sum = 0.0;
+		for(double d:pop) {
+			sum += d;
+		}
+		ave = sum / (double)size;
+		sum = 0.0;
+		for(double d:pop) {
+			sum += (d - ave)*(d-ave);
+		}
+		double var = sum/(double)size;
+		stdev = Math.sqrt(var);
+		popAveReal.setText(String.format("%.3f",ave));
+		popVarReal.setText(String.format("%.3f", var));
 		log.appendText("正規分布母集団：size=" + size + "平均=" + ave + "標準偏差" + stdev + "\n");
 		for (double d : pop) {
 			log.appendText(d + "\n");

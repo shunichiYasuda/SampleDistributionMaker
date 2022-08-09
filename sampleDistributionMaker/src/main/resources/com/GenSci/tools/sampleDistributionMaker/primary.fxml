@@ -31,15 +31,13 @@
             <TextField fx:id="sampleNumber" layoutX="243.0" layoutY="107.0" prefHeight="25.0" prefWidth="60.0" />
             <Label layoutX="92.0" layoutY="84.0" text="母集団平均" />
             <TextField fx:id="popSizeNormal" layoutX="498.0" layoutY="80.0" prefHeight="25.0" prefWidth="60.0" />
-            <Label layoutX="14.0" layoutY="140.0" text="標本分布平均" />
-            <Label fx:id="sampleAve" layoutX="106.0" layoutY="140.0" text="0" />
-            <Label layoutX="170.0" layoutY="140.0" text="標本分布標準偏差" />
-            <Label fx:id="sampleStdev" layoutX="279.0" layoutY="140.0" text="0" />
-            <Canvas height="419.0" layoutX="3.0" layoutY="174.0" width="562.0" />
-            <Label layoutX="303.0" layoutY="140.0" text="不偏分散" />
-            <Label fx:id="sampleUnVar" layoutX="360.0" layoutY="140.0" text="0" />
-            <Label layoutX="402.0" layoutY="140.0" text="標準誤差" />
-            <Label fx:id="sampleStErr" layoutX="472.0" layoutY="140.0" text="0" />
+            <Label layoutX="10.0" layoutY="169.0" text="標本分布平均" />
+            <Label fx:id="sampleAve" layoutX="94.0" layoutY="169.0" text="0" />
+            <Label layoutX="170.0" layoutY="169.0" text="標本分布分散" />
+            <Label fx:id="sampleVar" layoutX="253.0" layoutY="169.0" text="0" />
+            <Canvas height="390.0" layoutX="3.0" layoutY="203.0" width="562.0" />
+            <Label layoutX="294.0" layoutY="169.0" text="不偏分散" />
+            <Label fx:id="sampleUnVar" layoutX="357.0" layoutY="169.0" text="0" />
             <Label layoutX="244.0" layoutY="84.0" text="母集団標準偏差" />
             <TextField fx:id="popStdev" layoutX="336.0" layoutY="80.0" prefHeight="25.0" prefWidth="60.0" />
             <Label layoutX="97.0" layoutY="57.0" text="最小値" />
@@ -57,6 +55,10 @@
             <TextArea fx:id="log" layoutX="565.0" layoutY="53.0" prefHeight="533.0" prefWidth="229.0" />
             <Button fx:id="clearBtn" layoutX="728.0" layoutY="554.0" mnemonicParsing="false" onAction="#clear" text="clear" />
             <Button fx:id="copyBtn" layoutX="672.0" layoutY="554.0" mnemonicParsing="false" onAction="#copy" text="copy" />
+            <Label layoutX="10.0" layoutY="143.0" text="母平均（実）" />
+            <Label fx:id="popAveReal" layoutX="97.0" layoutY="143.0" text="0" />
+            <Label layoutX="172.0" layoutY="143.0" text="母分散（実）" />
+            <Label fx:id="popVarReal" layoutX="256.0" layoutY="143.0" text="0" />
          </children></Pane>
    </children>
 </AnchorPane>
