@@ -59,6 +59,8 @@
             <Label fx:id="popAveReal" layoutX="97.0" layoutY="143.0" text="0" />
             <Label layoutX="172.0" layoutY="143.0" text="母分散（実）" />
             <Label fx:id="popVarReal" layoutX="256.0" layoutY="143.0" text="0" />
+            <Label layoutX="294.0" layoutY="143.0" text="母標準偏差" />
+            <Label fx:id="popStdevReal" layoutX="366.0" layoutY="143.0" text="0" />
          </children></Pane>
    </children>
 </AnchorPane>

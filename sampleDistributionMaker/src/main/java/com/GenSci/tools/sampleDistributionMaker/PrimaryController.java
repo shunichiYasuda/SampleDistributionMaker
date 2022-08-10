@@ -50,6 +50,8 @@ public class PrimaryController {
 	@FXML
 	Label popVarReal;
 	@FXML
+	Label popStdevReal;
+	@FXML
 	Label sampleAve; // 標本平均の平均（標本平均）
 	@FXML
 	Label sampleVar; // 標本平均の分散
@@ -177,6 +179,7 @@ public class PrimaryController {
 		stdev = Math.sqrt(var);
 		popAveReal.setText(String.format("%.3f",ave));
 		popVarReal.setText(String.format("%.3f", var));
+		popStdevReal.setText(String.format("%.3f", stdev));
 		log.appendText("正規分布母集団：size=" + size + "平均=" + ave + "標準偏差" + stdev + "\n");
 		for (double d : pop) {
 			log.appendText(d + "\n");
